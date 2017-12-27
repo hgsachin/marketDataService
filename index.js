@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 
 const brokerConnector = require('./sendMessageToBroker');
 
+const PORT = process.env.PORT || 3010;
+
 const messageService = express();
 messageService.use(bodyParser.json());
 
@@ -23,7 +25,7 @@ messageService.post('/sendMessage', (req, res) => {
 });
 
 const messageServer = http.createServer(messageService);
-messageServer.listen(3010, () => {
-    console.log('Message Server started on port 3010');
-    setInterval(brokerConnector.streamMarket, 10000);
+messageServer.listen(PORT, () => {
+    console.log(`Message Server started on port ${PORT}`);
+    setInterval(brokerConnector.streamMarket, 30000);
 });
