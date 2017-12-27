@@ -1,12 +1,13 @@
 const request = require('request');
 const amqp = require('amqplib/callback_api');
 
-const MESSAGE_SERVER = 'amqp://localhost';
+const MESSAGE_SERVER = process.env.RABBITMQ_BIGWIG_URL || 'amqp://localhost';
 const QUEUE = 'metalAppQueue';
+const URL = process.env.REF_DATA_SERVICE_URL || 'http://localhost:3030';
 
 const streamMarket = () => {
     request({
-        url: `http://localhost:3030/metals`,
+        url: `${URL}/metals`,
         json: true
     }, (error, response, body) => {
         let message;
