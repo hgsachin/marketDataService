@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3010;
 
 const messageService = express();
 messageService.use(bodyParser.json());
-
+messageService.use(express.static(__dirname));
 messageService.post('/sendMessage', (req, res) => {
     var body = req.body;
     if (!body.message || body.message == '') {
